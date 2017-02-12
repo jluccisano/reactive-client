@@ -8,7 +8,7 @@ import Config from 'Config';
 import {LineChart} from 'react-d3-basic';
 import d3 from 'd3';
 import Moment from 'react-moment';
-import FontAwesome from 'react-fontawesome';
+import {Table} from 'react-bootstrap';
 
 class ReactiveMeteoStation extends React.Component {
   constructor(props, context) {
@@ -16,7 +16,8 @@ class ReactiveMeteoStation extends React.Component {
 
     this.state = {
       dht22: {temperature: 0, humidity: 0},
-      dataProvider: []
+      dataProvider: [],
+      lastWeekData: []
     };
 
     this.socket = new SockJS(Config.serverURL + Config.webSocketEndpoint);
@@ -32,22 +33,22 @@ class ReactiveMeteoStation extends React.Component {
   }
 
   componentDidMount() {
-    fetch(`${Config.serverURL}api/v1/sensor/dht22/fresh/${Config.gatewayId}`).then(response => {
+    fetch(`${Config.serverURL}/api/v1/sensor/dht22/fresh/${Config.gatewayId}`).then(response => {
       return response.json();
     }).then(json => {
       this.setState({dht22: json});
     });
 
-    fetch(`${Config.serverURL}api/v1/sensor/dht22/continuous/${Config.gatewayId}?sample=1h&range=12h`).then(response => {
+    fetch(`${Config.serverURL}/api/v1/sensor/dht22/continuous/${Config.gatewayId}?sample=1h&range=12h`).then(response => {
       return response.json();
     }).then(json => {
       this.setState({dataProvider: json.items});
     });
 
-    fetch(`${Config.serverURL}api/v1/sensor/dht22/continuous/${Config.gatewayId}?sample=1d&range=7d`).then(response => {
+    fetch(`${Config.serverURL}/api/v1/sensor/dht22/continuous/${Config.gatewayId}?sample=1d&range=7d`).then(response => {
       return response.json();
     }).then(json => {
-      this.setState({dataProvider: json.items});
+      this.setState({lastWeekData: json.items});
     });
   }
 
@@ -79,23 +80,32 @@ class ReactiveMeteoStation extends React.Component {
       }
     ];
 
-    function Rows(lastWeekData) {
+    function LastWeekDataTable(lastWeekData) {
       if (lastWeekData.data) {
         const rows = lastWeekData.data.map((row, i) => {
           return (
-            <a key={i} href="#" className="list-group-item">
-              <h4 className="list-group-item-heading">
-                <Moment format="MMMM Do YYYY">{row.time}</Moment>
-              </h4>
-              <FontAwesome name="thermometer-half" size="2x"/>
-              <p className="list-group-item-text">{row.min_temperature.toFixed(2)}°C/{row.max_temperature.toFixed(2)}°C</p>
-              <p className="list-group-item-text">{row.min_humidity.toFixed(2)}%/{row.max_humidity.toFixed(2)}%</p>
-              <p className="list-group-item-text">{row.mean_temperature.toFixed(2)}°C/{row.mean_humidity.toFixed(2)}%</p>
-            </a>
+            <tr key={i}>
+              <td><Moment format="MMMM Do YYYY">{row.time}</Moment></td>
+              <td>{row.min_temperature.toFixed(2)}°C/{row.max_temperature.toFixed(2)}°C</td>
+              <td>{row.mean_temperature.toFixed(2)}°C</td>
+              <td>{row.min_humidity.toFixed(2)}°C/{row.max_humidity.toFixed(2)}%</td>
+              <td>{row.mean_humidity.toFixed(2)}°C</td>
+            </tr>
           );
         });
         return (
-          <div className="list-group">{rows}</div>
+          <Table responsive condensed>
+            <thead>
+              <tr>
+                <th>day</th>
+                <th>temperature min/max</th>
+                <th>temperature mean</th>
+                <th>humidity min/max</th>
+                <th>humidity mean</th>
+              </tr>
+            </thead>
+            <tbody>{rows}</tbody>
+          </Table>
         );
       }
       return null;
@@ -108,10 +118,10 @@ class ReactiveMeteoStation extends React.Component {
     };
     return (
       <div>
-        <Rows data={lastWeekData}/>
-        <h2>Temperature: {dht22.temperature.toFixed(2)} °C</h2>
-        <h2>Humidity: {dht22.humidity.toFixed(2)} %</h2>
-        <LineChart width={1900} height={300} data={dataProvider} chartSeries={chartSeries} x={x} xScale={"time"} yScale={"linear"}/>
+        <h3>Temperature: {dht22.temperature.toFixed(2)} °C</h3>
+        <h3>Humidity: {dht22.humidity.toFixed(2)} %</h3>
+        <LineChart width={800} height={200} data={dataProvider} chartSeries={chartSeries} x={x} xScale={"time"} yScale={"linear"}/>
+        <LastWeekDataTable data={lastWeekData}/>
       </div>
     );
   }

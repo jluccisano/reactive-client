@@ -1,7 +1,5 @@
 import React, {Component} from 'react';
 import axios from 'axios';
-import Config from 'Config';
-
 import {Tech} from './tech';
 
 const styles = {
@@ -28,7 +26,7 @@ export class Techs extends Component {
 
   componentDidMount() {
     axios
-      .get(`${Config.serverURL}/app/techs/techs.json`)
+      .get("/app/techs/techs.json")
       .then(response => {
         this.setState({techs: response.data});
       });
