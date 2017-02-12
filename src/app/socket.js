@@ -9,7 +9,7 @@ class SocketClient extends React.Component {
   constructor(props, context) {
     super(props, context);
 
-    this.socket = new SockJS('http://localhost:8084/stomp');
+    this.socket = new SockJS('http://reactive-server:8084/stomp');
     this.stompClient = Stomp.over(this.socket);
 
     this.stompClient.connect({}, function (frame) {

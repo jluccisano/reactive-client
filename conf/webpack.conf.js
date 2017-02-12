@@ -66,6 +66,8 @@ module.exports = {
     `./${conf.path.src('index')}`
   ],
   node: {
-    net: 'empty'
+    net: 'empty',
+    tls: 'empty',
+    fs: 'empty'
   }
 };
