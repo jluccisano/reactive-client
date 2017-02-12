@@ -6,6 +6,13 @@ docker
 npm
 gulp
 
+```bash
+npm install gulp -g 
+npm install gulp-cli -g 
+npm install
+```
+
+
 ### Build
 ```bash
 gulp build
