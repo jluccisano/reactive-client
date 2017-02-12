@@ -7,16 +7,16 @@ const styles = {
     flexDirection: 'column',
     alignItems: 'center',
     padding: '1rem',
-    backgroundColor: '#cf4646',
+    backgroundColor: '#4f7dcf',
     color: 'white'
   },
   h1: {
     fontWeight: 300,
-    fontSize: '4rem',
+    fontSize: '3rem',
     margin: '1rem'
   },
   logo: {
-    height: '12rem',
+    height: '24rem',
     backgroundColor: 'white',
     borderRadius: '1rem',
     margin: '1rem'
@@ -32,14 +32,11 @@ export class Title extends Component {
   render() {
     return (
       <div style={styles.title}>
-        <SocketClient/>
         <h1 style={styles.h1}>Reactive Client</h1>
+        <SocketClient/>
         <div>
-          <img style={styles.logo} src="http://fountainjs.io/assets/imgs/yeoman.png"/>
-          <img style={styles.logo} src="http://fountainjs.io/assets/imgs/fountain.png"/>
           <img style={styles.logo} src="https://github.com/jluccisano/jluccisano.github.io/raw/master/assets/images/reactive-architecture.png"/>
         </div>
-        <h2 style={styles.h2}>Always a pleasure scaffolding your apps.</h2>
       </div>
     );
   }
