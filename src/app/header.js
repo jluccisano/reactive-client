@@ -24,12 +24,12 @@ export class Header extends Component {
     return (
       <header style={styles.header}>
         <p style={styles.title}>
-          <a href="https://github.com/FountainJS/generator-fountain-webapp" target="_blank">
-            Fountain Generator
+          <a href="#" target="_blank">
+            Reactive client
           </a>
         </p>
         <p style={styles.date}>
-          Generated with FountainJS v1.0.0-rc2 on Fri Jan 13 2017 13:46:53 GMT+0100 (CET)
+
         </p>
       </header>
     );

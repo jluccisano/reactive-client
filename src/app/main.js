@@ -3,7 +3,6 @@ import {Header} from './header';
 import {Title} from './title';
 import {Techs} from './techs/techs';
 import {Footer} from './footer';
-import SocketClient from './socket.js';
 
 const styles = {
   container: {
@@ -26,7 +25,6 @@ export class Main extends Component {
         <main style={styles.main}>
           <Title/>
           <Techs/>
-          <SocketClient/>
         </main>
         <Footer/>
       </div>

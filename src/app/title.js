@@ -1,4 +1,5 @@
 import React, {Component} from 'react';
+import SocketClient from './socket.js';
 
 const styles = {
   title: {
@@ -31,6 +32,7 @@ export class Title extends Component {
   render() {
     return (
       <div style={styles.title}>
+        <SocketClient/>
         <h1 style={styles.h1}>'Allo, 'Allo!</h1>
         <div>
           <img style={styles.logo} src="http://fountainjs.io/assets/imgs/yeoman.png"/>
