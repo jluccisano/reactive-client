@@ -12,7 +12,7 @@ class ReactiveMeteoStation extends React.Component {
     const title = this.state.title;
     return (
       <div>
-        <h2> {title}</h2>
+        <h2>{title}</h2>
       </div>
     );
   }

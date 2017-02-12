@@ -21,6 +21,12 @@ const styles = {
     borderRadius: '1rem',
     margin: '1rem'
   },
+  overview: {
+    width: '100%',
+    height: '100%',
+    borderRadius: '1rem',
+    margin: '1rem'
+  },
   h2: {
     fontWeight: 300,
     fontSize: '2rem',
@@ -35,7 +41,7 @@ export class Title extends Component {
         <h1 style={styles.h1}>Reactive Client</h1>
         <ReactiveMeteoStation/>
         <div>
-          <img style={styles.logo} src="https://github.com/jluccisano/jluccisano.github.io/raw/master/assets/images/reactive-architecture.png"/>
+          <img style={styles.overview} src="https://github.com/jluccisano/jluccisano.github.io/raw/develop/assets/images/reactive-architecture.png"/>
         </div>
       </div>
     );
