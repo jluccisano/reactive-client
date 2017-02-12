@@ -5,5 +5,3 @@ ADD reactive-client.zip /usr/share/nginx/html
 WORKDIR /usr/share/nginx/html
 RUN unzip -o reactive-client.zip \
   && rm reactive-client.zip
-  && rm conf/client-config.json
-  && ln -s /opt/client-config.json conf/
