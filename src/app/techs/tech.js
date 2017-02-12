@@ -2,7 +2,7 @@ import React, {Component} from 'react';
 
 const styles = {
   tech: {
-    height: '15rem',
+    height: '25rem',
     width: '15rem',
     border: '1px solid lightgray',
     borderRadius: '1rem',
