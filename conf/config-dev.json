@@ -1,5 +1,5 @@
 {
-  "serverURL": "http://nextrun.fr:8084/",
+  "serverURL": "http://localhost:8084",
   "webSocketEndpoint": "/stomp",
   "gatewayId": "your_gateway_id"
 }
