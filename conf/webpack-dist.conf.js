@@ -10,7 +10,7 @@ const autoprefixer = require('autoprefixer');
 
 module.exports = {
   externals: {
-    'Config':  JSON.stringify(require('./config.json'))
+    'Config':  JSON.stringify(require('./config-prod.json'))
   },
   module: {
     loaders: [

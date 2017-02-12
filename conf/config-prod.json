@@ -1,0 +1,5 @@
+{
+  "serverURL": "http://192.95.25.173:8084",
+  "webSocketEndpoint": "/stomp",
+  "gatewayId": "your_gateway_id"
+}
