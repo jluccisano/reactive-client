@@ -37,13 +37,18 @@ class SocketClient extends React.Component {
       });
     Request.get("http://localhost:8084/api/v1/sensor/dht22/continuous/raspberry_1?sample=1h&range=12h")
       .then(response => {
-        this.setState({dataProvider: JSON.parse(response[0]).values});
+        this.setState({dataProvider: JSON.parse(response[0]).items});
+      });
+    Request.get("http://localhost:8084/api/v1/sensor/dht22/continuous/raspberry_1?sample=1d&range=7d")
+      .then(response => {
+        this.setState({lastWeekData: JSON.parse(response[0]).items});
       });
   }
 
   render() {
     const dht22 = this.state.dht22;
     const dataProvider = this.state.dataProvider;
+    const lastWeekData = this.state.lastWeekData;
 
     const chartSeries = [
       {
@@ -55,23 +60,50 @@ class SocketClient extends React.Component {
           strokeOpacity: 0.2,
           fillOpacity: 0.2
         }
+      },
+      {
+        field: 'mean_humidity',
+        name: 'Humidity',
+        color: '#65b2ff',
+        style: {
+          strokeWidth: 2,
+          strokeOpacity: 0.2,
+          fillOpacity: 0.2
+        }
       }
     ];
+
+    function Rows(lastWeekData) {
+      if (lastWeekData.data) {
+        const rows = lastWeekData.data.map((row, i) => {
+          return (
+            <tr key={i}>
+              {Object.keys(row).map((col, j) => {
+                return <td key={j}>{row[col]}</td>;
+              })}
+            </tr>
+          );
+        });
+        return (
+          <tbody>{rows}</tbody>
+        );
+      }
+      return null;
+    }
 
     const parseISODate = d3.time.format('%Y-%m-%dT%H:%M:%SZ').parse;
 
     const x = function (d) {
       return parseISODate(d.time);
     };
-
-    const yScale = d3.scaleLinear()
-      .range([300, 0])
-      .domain([0, 50]);
     return (
       <div>
         <h2>Temperature: {dht22.temperature.toFixed(2)} °C</h2>
         <h2>Humidity: {dht22.humidity.toFixed(2)} %</h2>
-        <LineChart width={1900} height={300} data={dataProvider} chartSeries={chartSeries} x={x} xScale={"time"} yScale={yScale}/>
+        <LineChart width={1900} height={300} data={dataProvider} chartSeries={chartSeries} x={x} xScale={"time"} yScale={"linear"}/>
+        <table>
+          <Rows data={lastWeekData}/>
+        </table>
       </div>
     );
   }
