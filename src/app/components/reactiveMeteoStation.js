@@ -5,7 +5,6 @@ import React from 'react';
 import SockJS from 'sockjs-client';
 import Stomp from 'stompjs';
 import Config from 'Config';
-import Request from 'es6-request';
 import {LineChart} from 'react-d3-basic';
 import d3 from 'd3';
 import Moment from 'react-moment';
@@ -33,19 +32,23 @@ class ReactiveMeteoStation extends React.Component {
   }
 
   componentDidMount() {
-    Request.get(`${Config.serverURL}api/v1/sensor/dht22/fresh/raspberry_1`)
-      .then(response => {
-        console.log(JSON.parse(response[0]));
-        this.setState({dht22: JSON.parse(response[0])});
-      });
-    Request.get(`${Config.serverURL}api/v1/sensor/dht22/continuous/raspberry_1?sample=1h&range=12h`)
-      .then(response => {
-        this.setState({dataProvider: JSON.parse(response[0]).items});
-      });
-    Request.get(`${Config.serverURL}api/v1/sensor/dht22/continuous/raspberry_1?sample=1d&range=7d`)
-      .then(response => {
-        this.setState({lastWeekData: JSON.parse(response[0]).items});
-      });
+    fetch(`${Config.serverURL}api/v1/sensor/dht22/fresh/${Config.gatewayId}`).then(response => {
+      return response.json();
+    }).then(json => {
+      this.setState({dht22: json});
+    });
+
+    fetch(`${Config.serverURL}api/v1/sensor/dht22/continuous/${Config.gatewayId}?sample=1h&range=12h`).then(response => {
+      return response.json();
+    }).then(json => {
+      this.setState({dataProvider: json.items});
+    });
+
+    fetch(`${Config.serverURL}api/v1/sensor/dht22/continuous/${Config.gatewayId}?sample=1d&range=7d`).then(response => {
+      return response.json();
+    }).then(json => {
+      this.setState({dataProvider: json.items});
+    });
   }
 
   render() {

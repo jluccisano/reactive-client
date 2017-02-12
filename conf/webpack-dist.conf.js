@@ -9,6 +9,9 @@ const pkg = require('../package.json');
 const autoprefixer = require('autoprefixer');
 
 module.exports = {
+  externals: {
+    'Config':  JSON.stringify(require('./config.json'))
+  },
   module: {
     loaders: [
       {

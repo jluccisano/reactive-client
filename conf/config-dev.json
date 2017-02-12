@@ -1,4 +1,0 @@
-{
-  "serverURL": "http://localhost:8084/",
-  "webSocketEndpoint": "/stomp"
-}

@@ -8,7 +8,7 @@ const autoprefixer = require('autoprefixer');
 
 module.exports = {
   externals: {
-    'Config':  JSON.stringify(require('./config-dev.json'))
+    'Config':  JSON.stringify(require('./config.json'))
   },
   module: {
     loaders: [
