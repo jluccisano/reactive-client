@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import SocketClient from './socket.js';
+import ReactiveMeteoStation from './components/reactiveMeteoStation.js';
 
 const styles = {
   title: {
@@ -33,7 +33,7 @@ export class Title extends Component {
     return (
       <div style={styles.title}>
         <h1 style={styles.h1}>Reactive Client</h1>
-        <SocketClient/>
+        <ReactiveMeteoStation/>
         <div>
           <img style={styles.logo} src="https://github.com/jluccisano/jluccisano.github.io/raw/master/assets/images/reactive-architecture.png"/>
         </div>
