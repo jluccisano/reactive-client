@@ -3,38 +3,26 @@
  */
 import React from 'react';
 import SockJS from 'sockjs-client';
+import Stomp from 'stompjs';
 
 class SocketClient extends React.Component {
   constructor(props, context) {
     super(props, context);
 
-    this.state = {
-      comments: [],
-      people: []
-    };
-    this.setState = this.setState.bind(this);
-    const sockjsUrl = 'http://localhost:8080/stomp';
-    this.sockjs = new SockJS(sockjsUrl);
-    this.sockjs.onopen = this._initialize.bind(this);
-    this.sockjs.onmessage = this._onMessage.bind(this);
-    this.sockjs.onclose = this._onClose.bind(this);
-  }
+    this.socket = new SockJS('http://localhost:8084/stomp');
+    this.stompClient = Stomp.over(this.socket);
 
-  _initialize() {
-    console.log("connected");
-  }
-
-  _onMessage(e) {
-    console.log(JSON.parse(e.data));
-  }
-
-  _onClose() {
-    console.log("disconnected");
+    this.stompClient.connect({}, function (frame) {
+      console.log(`connected, ${frame}!`);
+      this.stompClient.subscribe('/queue/DHT22', greeting => {
+        console.log(JSON.parse(greeting.body).content);
+      });
+    });
   }
 
   render() {
     return (
-      <div id="first" className="box">
+      <div>
       </div>
     );
   }
