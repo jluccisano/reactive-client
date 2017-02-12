@@ -4,6 +4,7 @@
 import React from 'react';
 import SockJS from 'sockjs-client';
 import Stomp from 'stompjs';
+import request from 'es6-request';
 
 class SocketClient extends React.Component {
   constructor(props, context) {
@@ -22,6 +23,10 @@ class SocketClient extends React.Component {
         console.log(JSON.parse(data.body).data);
         this.setState({dht22: JSON.parse(data.body).data});
       });
+    });
+    request.get("http://localhost:8084/api/v1/sensor/continuous").then(body => {
+      console.log(body);
+      //https://www.npmjs.com/package/es6-request
     });
   }
 
