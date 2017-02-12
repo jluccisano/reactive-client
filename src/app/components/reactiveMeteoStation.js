@@ -25,8 +25,8 @@ class ReactiveMeteoStation extends React.Component {
     this.stompClient.connect({}, frame => {
       console.log(`connected, ${frame}!`);
       this.stompClient.subscribe('/queue/DHT22', data => {
-        console.log(JSON.parse(data.body).data);
-        this.setState({dht22: JSON.parse(data.body).data});
+        console.log(JSON.parse(data.body));
+        this.setState({dht22: JSON.parse(data.body)});
       });
     });
   }
