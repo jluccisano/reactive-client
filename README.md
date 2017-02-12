@@ -1,7 +1,17 @@
+[![Build Status](https://travis-ci.org/jluccisano/reactive-client.svg?branch=master)](https://travis-ci.org/jluccisano/reactive-client)
+
+
 ### Prerequisites
 docker
 npm
 gulp
+
+```bash
+npm install gulp -g 
+npm install gulp-cli -g 
+npm install
+```
+
 
 ### Build
 ```bash
