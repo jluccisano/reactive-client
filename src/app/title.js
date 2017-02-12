@@ -33,10 +33,11 @@ export class Title extends Component {
     return (
       <div style={styles.title}>
         <SocketClient/>
-        <h1 style={styles.h1}>'Allo, 'Allo!</h1>
+        <h1 style={styles.h1}>Reactive Client</h1>
         <div>
           <img style={styles.logo} src="http://fountainjs.io/assets/imgs/yeoman.png"/>
           <img style={styles.logo} src="http://fountainjs.io/assets/imgs/fountain.png"/>
+          <img style={styles.logo} src="https://github.com/jluccisano/jluccisano.github.io/raw/master/assets/images/reactive-architecture.png"/>
         </div>
         <h2 style={styles.h2}>Always a pleasure scaffolding your apps.</h2>
       </div>
