@@ -1,5 +1,9 @@
 [![Build Status](https://travis-ci.org/jluccisano/reactive-client.svg?branch=master)](https://travis-ci.org/jluccisano/reactive-client)
 
+### Architecture overview
+
+[![Architecture Overview](https://jluccisano.github.io/assets/images/consume-data-from-reactive-client.png)
+
 
 ### Prerequisites
 docker
